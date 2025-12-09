@@ -39,6 +39,9 @@ importers:
       drizzle-orm:
         specifier: ^0.45.0
         version: 0.45.0(@types/pg@8.15.6)(pg@8.16.3)
+      drizzle-zod:
+        specifier: ^0.8.3
+        version: 0.8.3(drizzle-orm@0.45.0(@types/pg@8.15.6)(pg@8.16.3))(zod@4.1.13)
       luxon:
         specifier: ^3.7.2
         version: 3.7.2
@@ -48,6 +51,9 @@ importers:
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
+      zod:
+        specifier: ^4.1.13
+        version: 4.1.13
     devDependencies:
       '@adonisjs/assembler':
         specifier: ^7.8.2
@@ -69,10 +75,10 @@ importers:
         version: 4.4.0
       '@repo/eslint-config':
         specifier: workspace:^
-        version: file:packages/eslint-config
+        version: link:../../packages/eslint-config
       '@repo/prettier-config':
         specifier: workspace:^
-        version: file:packages/prettier-config
+        version: link:../../packages/prettier-config
       '@swc/core':
         specifier: 1.15.3
         version: 1.15.3
@@ -1185,12 +1191,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  '@repo/eslint-config@file:packages/eslint-config':
-    resolution: {directory: packages/eslint-config, type: directory}
-
-  '@repo/prettier-config@file:packages/prettier-config':
-    resolution: {directory: packages/prettier-config, type: directory}
 
   '@rolldown/pluginutils@1.0.0-beta.53':
     resolution: {integrity: sha512-vENRlFU4YbrwVqNDZ7fLvy+JR1CRkyr01jhSiDpE1u6py3OMzQfztQU2jxykW3ALNxO4kSlqIDeYyD0Y9RcQeQ==}
@@ -2327,6 +2327,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-zod@0.8.3:
+    resolution: {integrity: sha512-66yVOuvGhKJnTdiqj1/Xaaz9/qzOdRJADpDa68enqS6g3t0kpNkwNYjUuaeXgZfO/UWuIM9HIhSlJ6C5ZraMww==}
+    peerDependencies:
+      drizzle-orm: '>=0.36.0'
+      zod: ^3.25.0 || ^4.0.0
 
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
@@ -4163,6 +4169,9 @@ packages:
   zod@3.24.2:
     resolution: {integrity: sha512-lY7CDW43ECgW9u1TcT3IoXHflywfVqDYze4waEz812jR/bZ8FHDsl7pFQoSZTz5N+2NqRXs8GBwnAwo3ZNxqhQ==}
 
+  zod@4.1.13:
+    resolution: {integrity: sha512-AvvthqfqrAhNH9dnfmrfKzX5upOdjUVJYFqNSlkmGf64gRaTzlPwz99IHYnVs28qYAybvAlBV+H7pn0saFY4Ig==}
+
 snapshots:
 
   '@acemir/cssom@0.9.28': {}
@@ -5190,10 +5199,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.7
 
-  '@repo/eslint-config@file:packages/eslint-config': {}
-
-  '@repo/prettier-config@file:packages/prettier-config': {}
-
   '@rolldown/pluginutils@1.0.0-beta.53': {}
 
   '@rollup/rollup-android-arm-eabi@4.50.2':
@@ -6187,6 +6192,11 @@ snapshots:
     optionalDependencies:
       '@types/pg': 8.15.6
       pg: 8.16.3
+
+  drizzle-zod@0.8.3(drizzle-orm@0.45.0(@types/pg@8.15.6)(pg@8.16.3))(zod@4.1.13):
+    dependencies:
+      drizzle-orm: 0.45.0(@types/pg@8.15.6)(pg@8.16.3)
+      zod: 4.1.13
 
   dunder-proto@1.0.1:
     dependencies:
@@ -7923,3 +7933,5 @@ snapshots:
       youch-core: 0.3.2
 
   zod@3.24.2: {}
+
+  zod@4.1.13: {}
