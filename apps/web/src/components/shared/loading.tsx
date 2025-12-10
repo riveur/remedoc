@@ -14,7 +14,7 @@ export function Loading({
       )}
       {...props}
     >
-      <Spinner variant="ring" />
+      <Spinner />
       {children}
     </div>
   )
