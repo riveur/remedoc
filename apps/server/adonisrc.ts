@@ -32,6 +32,8 @@ export default defineConfig({
     () => import('@adonisjs/cors/cors_provider'),
     () => import('@tuyau/core/tuyau_provider'),
     () => import('@adonisjs/static/static_provider'),
+    () => import('@adonisjs/ally/ally_provider'),
+    () => import('@adonisjs/auth/auth_provider'),
   ],
 
   /*
