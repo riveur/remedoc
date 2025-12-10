@@ -1,17 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router'
 
+import {
+  Layout,
+  LayoutDescription,
+  LayoutHeader,
+  LayoutTitle,
+} from '@/features/dashboard/components/layout'
+
 export const Route = createFileRoute('/dashboard/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { user } = Route.useRouteContext()
-
   return (
-    <>
-      <main className="min-h-dvh flex flex-col gap-4">
-        <pre>{JSON.stringify(user, null, 2)}</pre>
-      </main>
-    </>
+    <Layout>
+      <LayoutHeader>
+        <LayoutTitle>Vue d'ensemble</LayoutTitle>
+        <LayoutDescription>Bienvenue sur le tableau de bord.</LayoutDescription>
+      </LayoutHeader>
+    </Layout>
   )
 }
