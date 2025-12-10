@@ -68,6 +68,6 @@ export default class DiscordCallbackController {
 
     const token = await DrizzleDbAccessTokensProvider.default().create(result.user)
 
-    return response.json(token)
+    return response.ok({ type: token.type, token: token.value!.release() })
   }
 }

@@ -9,50 +9,144 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
+import { Route as GuestRouteRouteImport } from './routes/_guest/route'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
+import { Route as GuestIndexRouteImport } from './routes/_guest/index'
+import { Route as GuestAuthCallbackRouteImport } from './routes/_guest/auth.callback'
 
-const IndexRoute = IndexRouteImport.update({
+const DashboardRouteRoute = DashboardRouteRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuestRouteRoute = GuestRouteRouteImport.update({
+  id: '/_guest',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const GuestIndexRoute = GuestIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => GuestRouteRoute,
+} as any)
+const GuestAuthCallbackRoute = GuestAuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => GuestRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/': typeof GuestIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/auth/callback': typeof GuestAuthCallbackRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/': typeof GuestIndexRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/auth/callback': typeof GuestAuthCallbackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_guest': typeof GuestRouteRouteWithChildren
+  '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/_guest/': typeof GuestIndexRoute
+  '/dashboard/': typeof DashboardIndexRoute
+  '/_guest/auth/callback': typeof GuestAuthCallbackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/dashboard' | '/' | '/dashboard/' | '/auth/callback'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/dashboard' | '/auth/callback'
+  id:
+    | '__root__'
+    | '/_guest'
+    | '/dashboard'
+    | '/_guest/'
+    | '/dashboard/'
+    | '/_guest/auth/callback'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  GuestRouteRoute: typeof GuestRouteRouteWithChildren
+  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_guest': {
+      id: '/_guest'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof GuestRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/_guest/': {
+      id: '/_guest/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof GuestIndexRouteImport
+      parentRoute: typeof GuestRouteRoute
+    }
+    '/_guest/auth/callback': {
+      id: '/_guest/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof GuestAuthCallbackRouteImport
+      parentRoute: typeof GuestRouteRoute
     }
   }
 }
 
+interface GuestRouteRouteChildren {
+  GuestIndexRoute: typeof GuestIndexRoute
+  GuestAuthCallbackRoute: typeof GuestAuthCallbackRoute
+}
+
+const GuestRouteRouteChildren: GuestRouteRouteChildren = {
+  GuestIndexRoute: GuestIndexRoute,
+  GuestAuthCallbackRoute: GuestAuthCallbackRoute,
+}
+
+const GuestRouteRouteWithChildren = GuestRouteRoute._addFileChildren(
+  GuestRouteRouteChildren,
+)
+
+interface DashboardRouteRouteChildren {
+  DashboardIndexRoute: typeof DashboardIndexRoute
+}
+
+const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardIndexRoute: DashboardIndexRoute,
+}
+
+const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
+  DashboardRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  GuestRouteRoute: GuestRouteRouteWithChildren,
+  DashboardRouteRoute: DashboardRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
