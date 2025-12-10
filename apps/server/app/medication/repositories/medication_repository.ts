@@ -10,6 +10,11 @@ export class MedicationRepository {
     return medication
   }
 
+  async findById(id: number) {
+    const [medication] = await db.select().from(medications).where(eq(medications.id, id))
+    return medication
+  }
+
   async findAll(activeOnly = true) {
     const query = activeOnly
       ? db.select().from(medications).where(eq(medications.active, true))
@@ -27,11 +32,11 @@ export class MedicationRepository {
     return updated
   }
 
-  async archiveMedication(id: number) {
+  async archive(id: number) {
     return await this.update(id, { active: false })
   }
 
-  async deleteMedication(id: number) {
+  async delete(id: number) {
     await db.delete(medications).where(eq(medications.id, id))
   }
 }

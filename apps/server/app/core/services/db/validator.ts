@@ -2,7 +2,13 @@ import { createInsertSchema, createUpdateSchema } from 'drizzle-zod'
 
 import { medicationLogs, medications, medicationSchedules } from '#core/services/db/schema'
 
-export const createMedicationSchema = createInsertSchema(medications)
+export const createMedicationSchema = createInsertSchema(medications).omit({
+  id: true,
+  userId: true,
+  active: true,
+  createdAt: true,
+  updatedAt: true,
+})
 export const updateMedicationSchema = createUpdateSchema(medications)
 
 export const createMedicationScheduleSchema = createInsertSchema(medicationSchedules)

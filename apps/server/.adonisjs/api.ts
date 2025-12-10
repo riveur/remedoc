@@ -19,6 +19,10 @@ type ApiAuthCallbackGetHead = {
   request: unknown
   response: MakeTuyauResponse<import('../app/auth/controllers/discord_callback_controller.ts').default['handle'], false>
 }
+type ApiMedicationsPost = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/medication/controllers/create_medication_controller.ts').default['handle'], false>
+}
 export interface ApiDefinition {
   'api': {
     'auth': {
@@ -40,6 +44,11 @@ export interface ApiDefinition {
         '$get': ApiAuthCallbackGetHead;
         '$head': ApiAuthCallbackGetHead;
       };
+    };
+    'medications': {
+      '$url': {
+      };
+      '$post': ApiMedicationsPost;
     };
   };
 }
