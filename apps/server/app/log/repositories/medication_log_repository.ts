@@ -51,6 +51,7 @@ export class MedicationLogRepository {
 
       if (existingLog.length === 0) {
         logsToCreate.push({
+          userId: medication.userId,
           medicationId: medication.id,
           scheduleId: schedule.id,
           scheduledDate: formattedDate,

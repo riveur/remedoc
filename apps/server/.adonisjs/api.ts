@@ -23,6 +23,10 @@ type ApiMedicationsPost = {
   request: unknown
   response: MakeTuyauResponse<import('../app/medication/controllers/create_medication_controller.ts').default['handle'], false>
 }
+type ApiMedicationsIdSchedulesPost = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/schedule/controllers/add_schedule_controller.ts').default['handle'], false>
+}
 export interface ApiDefinition {
   'api': {
     'auth': {
@@ -49,6 +53,13 @@ export interface ApiDefinition {
       '$url': {
       };
       '$post': ApiMedicationsPost;
+      ':medicationId': {
+        'schedules': {
+          '$url': {
+          };
+          '$post': ApiMedicationsIdSchedulesPost;
+        };
+      };
     };
   };
 }
