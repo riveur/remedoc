@@ -13,6 +13,8 @@ import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
 import { Route as GuestRouteRouteImport } from './routes/_guest/route'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
 import { Route as GuestIndexRouteImport } from './routes/_guest/index'
+import { Route as DashboardMedicationsRouteImport } from './routes/dashboard/medications'
+import { Route as DashboardMedicationsMedicationIdRouteImport } from './routes/dashboard/medications_.$medicationId'
 import { Route as GuestAuthCallbackRouteImport } from './routes/_guest/auth.callback'
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -34,6 +36,17 @@ const GuestIndexRoute = GuestIndexRouteImport.update({
   path: '/',
   getParentRoute: () => GuestRouteRoute,
 } as any)
+const DashboardMedicationsRoute = DashboardMedicationsRouteImport.update({
+  id: '/medications',
+  path: '/medications',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardMedicationsMedicationIdRoute =
+  DashboardMedicationsMedicationIdRouteImport.update({
+    id: '/medications_/$medicationId',
+    path: '/medications/$medicationId',
+    getParentRoute: () => DashboardRouteRoute,
+  } as any)
 const GuestAuthCallbackRoute = GuestAuthCallbackRouteImport.update({
   id: '/auth/callback',
   path: '/auth/callback',
@@ -42,35 +55,54 @@ const GuestAuthCallbackRoute = GuestAuthCallbackRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/medications': typeof DashboardMedicationsRoute
   '/': typeof GuestIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/auth/callback': typeof GuestAuthCallbackRoute
+  '/dashboard/medications/$medicationId': typeof DashboardMedicationsMedicationIdRoute
 }
 export interface FileRoutesByTo {
+  '/dashboard/medications': typeof DashboardMedicationsRoute
   '/': typeof GuestIndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/auth/callback': typeof GuestAuthCallbackRoute
+  '/dashboard/medications/$medicationId': typeof DashboardMedicationsMedicationIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_guest': typeof GuestRouteRouteWithChildren
   '/dashboard': typeof DashboardRouteRouteWithChildren
+  '/dashboard/medications': typeof DashboardMedicationsRoute
   '/_guest/': typeof GuestIndexRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/_guest/auth/callback': typeof GuestAuthCallbackRoute
+  '/dashboard/medications_/$medicationId': typeof DashboardMedicationsMedicationIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/dashboard' | '/' | '/dashboard/' | '/auth/callback'
+  fullPaths:
+    | '/dashboard'
+    | '/dashboard/medications'
+    | '/'
+    | '/dashboard/'
+    | '/auth/callback'
+    | '/dashboard/medications/$medicationId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/auth/callback'
+  to:
+    | '/dashboard/medications'
+    | '/'
+    | '/dashboard'
+    | '/auth/callback'
+    | '/dashboard/medications/$medicationId'
   id:
     | '__root__'
     | '/_guest'
     | '/dashboard'
+    | '/dashboard/medications'
     | '/_guest/'
     | '/dashboard/'
     | '/_guest/auth/callback'
+    | '/dashboard/medications_/$medicationId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -108,6 +140,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestIndexRouteImport
       parentRoute: typeof GuestRouteRoute
     }
+    '/dashboard/medications': {
+      id: '/dashboard/medications'
+      path: '/medications'
+      fullPath: '/dashboard/medications'
+      preLoaderRoute: typeof DashboardMedicationsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/medications_/$medicationId': {
+      id: '/dashboard/medications_/$medicationId'
+      path: '/medications/$medicationId'
+      fullPath: '/dashboard/medications/$medicationId'
+      preLoaderRoute: typeof DashboardMedicationsMedicationIdRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
     '/_guest/auth/callback': {
       id: '/_guest/auth/callback'
       path: '/auth/callback'
@@ -133,11 +179,15 @@ const GuestRouteRouteWithChildren = GuestRouteRoute._addFileChildren(
 )
 
 interface DashboardRouteRouteChildren {
+  DashboardMedicationsRoute: typeof DashboardMedicationsRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
+  DashboardMedicationsMedicationIdRoute: typeof DashboardMedicationsMedicationIdRoute
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
+  DashboardMedicationsRoute: DashboardMedicationsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardMedicationsMedicationIdRoute: DashboardMedicationsMedicationIdRoute,
 }
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(

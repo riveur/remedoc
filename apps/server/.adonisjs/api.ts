@@ -23,9 +23,25 @@ type ApiAuthLogoutPost = {
   request: unknown
   response: MakeTuyauResponse<import('../app/auth/controllers/logout_controller.ts').default['handle'], false>
 }
+type ApiMedicationsGetHead = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/medication/controllers/list_medication_controller.ts').default['handle'], false>
+}
 type ApiMedicationsPost = {
   request: unknown
   response: MakeTuyauResponse<import('../app/medication/controllers/create_medication_controller.ts').default['handle'], false>
+}
+type ApiMedicationsIdGetHead = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/medication/controllers/show_medication_controller.ts').default['handle'], false>
+}
+type ApiMedicationsIdPut = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/medication/controllers/update_medication_controller.ts').default['handle'], false>
+}
+type ApiMedicationsIdArchivePost = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/medication/controllers/toggle_archive_medication_controller.ts').default['handle'], false>
 }
 type ApiMedicationsIdSchedulesPost = {
   request: unknown
@@ -61,8 +77,20 @@ export interface ApiDefinition {
     'medications': {
       '$url': {
       };
+      '$get': ApiMedicationsGetHead;
+      '$head': ApiMedicationsGetHead;
       '$post': ApiMedicationsPost;
       ':medicationId': {
+        '$url': {
+        };
+        '$get': ApiMedicationsIdGetHead;
+        '$head': ApiMedicationsIdGetHead;
+        '$put': ApiMedicationsIdPut;
+        'archive': {
+          '$url': {
+          };
+          '$post': ApiMedicationsIdArchivePost;
+        };
         'schedules': {
           '$url': {
           };

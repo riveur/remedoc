@@ -1,5 +1,5 @@
 import { Link, useMatches } from '@tanstack/react-router'
-import { TelescopeIcon } from 'lucide-react'
+import { PillBottleIcon, TelescopeIcon } from 'lucide-react'
 
 import {
   SidebarGroup,
@@ -14,6 +14,12 @@ const items = [
     url: '/dashboard',
     icon: TelescopeIcon,
     children: ['/dashboard'],
+  },
+  {
+    title: 'Médicaments',
+    url: '/dashboard/medications',
+    icon: PillBottleIcon,
+    children: ['/dashboard/medications', '/dashboard/medications/$medicationId'],
   },
 ]
 

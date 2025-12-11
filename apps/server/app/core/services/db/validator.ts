@@ -9,7 +9,12 @@ export const createMedicationSchema = createInsertSchema(medications).omit({
   createdAt: true,
   updatedAt: true,
 })
-export const updateMedicationSchema = createUpdateSchema(medications)
+export const updateMedicationSchema = createUpdateSchema(medications).omit({
+  id: true,
+  userId: true,
+  createdAt: true,
+  updatedAt: true,
+})
 
 export const createMedicationScheduleSchema = createInsertSchema(medicationSchedules)
 export const updateMedicationScheduleSchema = createUpdateSchema(medicationSchedules)
