@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { DateTime } from 'luxon'
 
 import { db } from '#core/services/db/main'
@@ -14,20 +14,27 @@ export class MedicationScheduleRepository {
     return schedule
   }
 
+  async findById(scheduleId: number) {
+    const [schedule] = await db
+      .select()
+      .from(medicationSchedules)
+      .where(eq(medicationSchedules.id, scheduleId))
+      .limit(1)
+    return schedule
+  }
+
   async findByMedication(medicationId: number) {
     return await db
       .select()
       .from(medicationSchedules)
-      .where(
-        and(
-          eq(medicationSchedules.medicationId, medicationId),
-          eq(medicationSchedules.active, true)
-        )
-      )
+      .where(eq(medicationSchedules.medicationId, medicationId))
       .orderBy(medicationSchedules.timeOfDay)
   }
 
-  async update(id: number, data: Partial<Omit<NewMedicationSchedule, 'createdAt'>>) {
+  async update(
+    id: number,
+    data: Partial<Omit<NewMedicationSchedule, 'createdAt' | 'id' | 'medicationId'>>
+  ) {
     const [updated] = await db
       .update(medicationSchedules)
       .set(data)

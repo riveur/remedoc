@@ -13,7 +13,7 @@ export class MedicationScheduleViewModel {
       medicationId: this.schedule.medicationId,
       timeOfDay: this.schedule.timeOfDay,
       daysOfWeek: this.schedule.daysOfWeek
-        ? this.schedule.daysOfWeek.split(',').map(Number.parseInt)
+        ? this.schedule.daysOfWeek.split(',').map((value) => Number.parseInt(value))
         : null,
       active: this.schedule.active,
       notes: this.schedule.notes,

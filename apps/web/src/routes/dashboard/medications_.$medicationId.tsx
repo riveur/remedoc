@@ -4,7 +4,8 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArchiveIcon, ArchiveRestoreIcon, ArrowLeftIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Field } from '@/components/ui/field'
+import { Field, FieldSet } from '@/components/ui/field'
+import { FieldsetLegend } from '@/components/ui/fieldset'
 import {
   Layout,
   LayoutDescription,
@@ -14,6 +15,8 @@ import {
 import { MedicationEditForm } from '@/features/medication/components/medication_edit_form'
 import { useToggleArchiveMedicationMutation } from '@/features/medication/mutations'
 import { showMedicationQueryOptions } from '@/features/medication/queries'
+import { MedicationScheduleForm } from '@/features/schedule/components/medication_schedule_form'
+import { ScheduleItemList } from '@/features/schedule/components/schedule_item_list'
 
 export const Route = createFileRoute('/dashboard/medications_/$medicationId')({
   component: RouteComponent,
@@ -51,6 +54,11 @@ function RouteComponent() {
         </Button>
       </Field>
       <MedicationEditForm medication={medication} />
+      <FieldSet>
+        <FieldsetLegend>Horaires</FieldsetLegend>
+        <ScheduleItemList medicationId={medication.id} />
+        <MedicationScheduleForm medicationId={medication.id} />
+      </FieldSet>
     </Layout>
   )
 }

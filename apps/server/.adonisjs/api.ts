@@ -43,9 +43,21 @@ type ApiMedicationsIdArchivePost = {
   request: unknown
   response: MakeTuyauResponse<import('../app/medication/controllers/toggle_archive_medication_controller.ts').default['handle'], false>
 }
+type ApiMedicationsIdSchedulesGetHead = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/schedule/controllers/list_schedule_controller.ts').default['handle'], false>
+}
 type ApiMedicationsIdSchedulesPost = {
   request: unknown
   response: MakeTuyauResponse<import('../app/schedule/controllers/add_schedule_controller.ts').default['handle'], false>
+}
+type ApiMedicationsIdSchedulesIdArchivePost = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/schedule/controllers/toggle_active_schedule_controller.ts').default['handle'], false>
+}
+type ApiMedicationsIdSchedulesIdDelete = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/schedule/controllers/delete_schedule_controller.ts').default['handle'], false>
 }
 export interface ApiDefinition {
   'api': {
@@ -94,7 +106,19 @@ export interface ApiDefinition {
         'schedules': {
           '$url': {
           };
+          '$get': ApiMedicationsIdSchedulesGetHead;
+          '$head': ApiMedicationsIdSchedulesGetHead;
           '$post': ApiMedicationsIdSchedulesPost;
+          ':scheduleId': {
+            'archive': {
+              '$url': {
+              };
+              '$post': ApiMedicationsIdSchedulesIdArchivePost;
+            };
+            '$url': {
+            };
+            '$delete': ApiMedicationsIdSchedulesIdDelete;
+          };
         };
       };
     };
