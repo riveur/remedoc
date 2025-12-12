@@ -55,6 +55,7 @@ export default class MedicationScheduleNotification extends Job<
         medications,
         and(
           eq(medications.id, medicationSchedules.medicationId),
+          eq(medications.active, true),
           eq(medications.userId, this.data.userId)
         )
       )
