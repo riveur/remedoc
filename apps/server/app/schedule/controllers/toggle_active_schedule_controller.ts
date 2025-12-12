@@ -1,5 +1,6 @@
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
+import emitter from '@adonisjs/core/services/emitter'
 
 import { MedicationRepository } from '#medication/repositories/medication_repository'
 import { MedicationScheduleRepository } from '#schedule/repositories/medication_schedule_repository'
@@ -27,6 +28,8 @@ export default class ToggleActiveScheduleController {
     }
 
     await this.scheduleRepository.update(schedule.id, { active: !schedule.active })
+
+    await emitter.emit('setup:user-schedule', { userId: user.id, timeOfDay: schedule.timeOfDay })
 
     return response.noContent()
   }

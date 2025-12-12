@@ -1,5 +1,6 @@
 import { inject } from '@adonisjs/core'
 import type { HttpContext } from '@adonisjs/core/http'
+import emitter from '@adonisjs/core/services/emitter'
 
 import { createMedicationScheduleSchema } from '#core/services/db/validator'
 import { validateUsingZod } from '#core/utils'
@@ -31,6 +32,8 @@ export default class AddScheduleController {
       ...payload,
       medicationId: medication.id,
     })
+
+    await emitter.emit('setup:user-schedule', { userId: user.id, timeOfDay: schedule.timeOfDay })
 
     return response.json(MedicationScheduleViewModel.fromDomain(schedule).serialize())
   }

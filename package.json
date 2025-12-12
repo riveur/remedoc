@@ -2,11 +2,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "turbo dev",
+    "dev": "turbo dev @repo/server#queue:work",
     "build": "turbo build",
     "typecheck": "turbo typecheck",
-    "dev:web": "turbo -F web dev",
-    "dev:server": "turbo -F server dev"
+    "dev:web": "turbo -F @repo/web dev",
+    "dev:server": "turbo -F @repo/server dev",
+    "build:packages": "pnpm run --filter=./packages/* build"
   },
   "author": "riveur",
   "license": "UNLICENSED",

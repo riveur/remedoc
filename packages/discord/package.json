@@ -1,0 +1,31 @@
+{
+  "name": "@repo/discord",
+  "type": "module",
+  "private": "true",
+  "exports": {
+    "./utils": {
+      "default": "./build/utils/index.js",
+      "types": "./build/utils/index.d.ts"
+    },
+    "./components": {
+      "default": "./build/components/index.js",
+      "types": "./build/components/index.d.ts"
+    }
+  },
+  "files": ["build"],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@discordjs/builders": "^1.13.1",
+    "@discordjs/core": "^2.4.0"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:^",
+    "@repo/prettier-config": "workspace:^",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "typescript": "^5.9.3"
+  },
+  "prettier": "@repo/prettier-config"
+}
