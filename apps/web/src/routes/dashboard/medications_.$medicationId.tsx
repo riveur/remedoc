@@ -36,7 +36,7 @@ function RouteComponent() {
       <LayoutHeader>
         <LayoutTitle>Médicament #{medication.id}</LayoutTitle>
         <LayoutDescription>
-          Consultez les détails du médicament et apportez des modications si nécessaire.
+          Consultez les détails du médicament et apportez des modifications si nécessaire.
         </LayoutDescription>
       </LayoutHeader>
       <Field orientation="horizontal" className="justify-between">
