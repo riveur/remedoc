@@ -62,7 +62,6 @@
     "typescript": "~5.9.3"
   },
   "dependencies": {
-    "@repo/discord": "workspace:^",
     "@adonisjs/ally": "^5.1.1",
     "@adonisjs/auth": "^9.5.1",
     "@adonisjs/core": "^6.19.1",
@@ -71,6 +70,7 @@
     "@adonisjs/static": "^1.1.1",
     "@discordjs/rest": "^2.6.0",
     "@nemoventures/adonis-jobs": "^1.1.0",
+    "@repo/discord": "workspace:^",
     "@tuyau/core": "^0.4.2",
     "bullmq": "^5.66.0",
     "discord-api-types": "^0.38.37",

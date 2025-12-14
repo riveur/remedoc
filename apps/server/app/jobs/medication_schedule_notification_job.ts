@@ -60,19 +60,19 @@ export default class MedicationScheduleNotification extends Job<
         )
       )
 
-    if (result.length === 0) {
-      return {
-        message: `Aucun horaire configuré à ${this.data.timeOfDay} pour l'utilisateur #${user.id}`,
-        ok: false,
-      }
-    }
-
     const weekday = DateTime.now().weekday
 
     result = result.filter((item) => {
       const days = item.schedule.daysOfWeek?.split(',').map((day) => Number.parseInt(day)) || []
       return days.length === 0 || days.includes(weekday)
     })
+
+    if (result.length === 0) {
+      return {
+        message: `Aucun horaire configuré à ${this.data.timeOfDay} pour l'utilisateur #${user.id}`,
+        ok: true,
+      }
+    }
 
     const component = MedicationScheduleComponent.build({
       data: result,
