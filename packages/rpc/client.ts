@@ -1,4 +1,5 @@
 import { ApiDefinition, createTuyau, TuyauOptions } from "@tuyau/client";
+export { TuyauHTTPError } from '@tuyau/client'
 
 import { api } from '@repo/server/api'
 
