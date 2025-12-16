@@ -3,7 +3,7 @@ import { DateTime } from 'luxon'
 
 import { DrizzleDbAccessTokensProvider } from '#auth/token_providers/drizzle_db'
 import { db } from '#core/services/db/main'
-import { discordTokens, users } from '#core/services/db/schema'
+import { users } from '#core/services/db/schema'
 
 export default class DiscordCallbackController {
   async handle({ response, ally }: HttpContext) {
@@ -27,46 +27,24 @@ export default class DiscordCallbackController {
 
     const discordUser = await discord.user()
 
-    const result = await db.transaction(async (tx) => {
-      const [user] = await tx
-        .insert(users)
-        .values({
-          discordId: discordUser.id,
+    const [user] = await db
+      .insert(users)
+      .values({
+        discordId: discordUser.id,
+        username: discordUser.original.global_name ?? discordUser.nickName,
+        avatarUrl: discordUser.avatarUrl,
+      })
+      .onConflictDoUpdate({
+        target: users.discordId,
+        set: {
           username: discordUser.original.global_name ?? discordUser.nickName,
           avatarUrl: discordUser.avatarUrl,
-        })
-        .onConflictDoUpdate({
-          target: users.discordId,
-          set: {
-            username: discordUser.original.global_name ?? discordUser.nickName,
-            avatarUrl: discordUser.avatarUrl,
-            updatedAt: DateTime.now().toJSDate(),
-          },
-        })
-        .returning()
+          updatedAt: DateTime.now().toJSDate(),
+        },
+      })
+      .returning()
 
-      await tx
-        .insert(discordTokens)
-        .values({
-          userId: user.id,
-          accessToken: discordUser.token.token,
-          refreshToken: discordUser.token.refreshToken,
-          expiresAt: discordUser.token.expiresAt,
-        })
-        .onConflictDoUpdate({
-          target: discordTokens.userId,
-          set: {
-            accessToken: discordUser.token.token,
-            refreshToken: discordUser.token.refreshToken,
-            expiresAt: discordUser.token.expiresAt,
-            updatedAt: DateTime.now().toJSDate(),
-          },
-        })
-
-      return { user }
-    })
-
-    const token = await DrizzleDbAccessTokensProvider.default().create(result.user)
+    const token = await DrizzleDbAccessTokensProvider.default().create(user)
 
     return response.ok({ type: token.type, token: token.value!.release() })
   }

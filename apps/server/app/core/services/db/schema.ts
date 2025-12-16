@@ -45,19 +45,6 @@ export const userPreferences = pgTable('user_preferences', {
   notificationsEnabled: boolean('notifications_enabled').default(true).notNull(),
 })
 
-export const discordTokens = pgTable('discord_tokens', {
-  id: serial('id').primaryKey(),
-  userId: integer('user_id')
-    .notNull()
-    .references(() => users.id, { onDelete: 'cascade' })
-    .unique(),
-  accessToken: text('access_token').notNull(),
-  refreshToken: text('refresh_token').notNull(),
-  expiresAt: timestamp('expires_at').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
-})
-
 export const medications = pgTable('medications', {
   id: serial('id').primaryKey(),
   userId: integer('user_id')
@@ -104,10 +91,9 @@ export const medicationLogs = pgTable('medication_logs', {
   createdAt: timestamp('created_at').defaultNow().notNull(),
 })
 
-export const usersRelations = relations(users, ({ many, one }) => ({
+export const usersRelations = relations(users, ({ many }) => ({
   medications: many(medications),
   logs: many(medicationLogs),
-  discordToken: one(discordTokens),
 }))
 
 export const medicationsRelations = relations(medications, ({ one, many }) => ({
@@ -142,13 +128,6 @@ export const medicationLogsRelations = relations(medicationLogs, ({ one }) => ({
   }),
 }))
 
-export const discordTokensRelations = relations(discordTokens, ({ one }) => ({
-  user: one(users, {
-    fields: [discordTokens.userId],
-    references: [users.id],
-  }),
-}))
-
 export type User = typeof users.$inferSelect
 export type NewUser = typeof users.$inferInsert
 
@@ -160,6 +139,3 @@ export type NewMedicationSchedule = typeof medicationSchedules.$inferInsert
 
 export type MedicationLog = typeof medicationLogs.$inferSelect
 export type NewMedicationLog = typeof medicationLogs.$inferInsert
-
-export type DiscordToken = typeof discordTokens.$inferSelect
-export type NewDiscordToken = typeof discordTokens.$inferInsert

@@ -15,6 +15,13 @@
       "when": 1765340297693,
       "tag": "0001_smart_dormammu",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1765895074544,
+      "tag": "0002_known_george_stacy",
+      "breakpoints": true
     }
   ]
 }
