@@ -8,7 +8,7 @@
     "./api": "./.adonisjs/index.ts"
   },
   "scripts": {
-    "build": "node ace build",
+    "build": "node ace build --ignore-ts-errors",
     "dev": "node ace serve --hmr",
     "test": "node ace test",
     "lint": "eslint .",

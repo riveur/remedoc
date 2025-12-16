@@ -12,8 +12,7 @@ COPY . .
 # Build stage
 FROM installer AS build
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm --filter=web build
-RUN pnpm --filter=server build --ignore-ts-errors
+RUN pnpm build
 RUN pnpm deploy --filter=server --prod /prod/server
 
 # Production stage
