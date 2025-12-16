@@ -23,6 +23,10 @@ type ApiAuthLogoutPost = {
   request: unknown
   response: MakeTuyauResponse<import('../app/auth/controllers/logout_controller.ts').default['handle'], false>
 }
+type ApiDiscordIdSchedulesGetHead = {
+  request: unknown
+  response: MakeTuyauResponse<import('../app/discord/controllers/list_user_schedule_controller.ts').default['handle'], false>
+}
 type ApiMedicationsGetHead = {
   request: unknown
   response: MakeTuyauResponse<import('../app/medication/controllers/list_medication_controller.ts').default['handle'], false>
@@ -84,6 +88,16 @@ export interface ApiDefinition {
         '$url': {
         };
         '$post': ApiAuthLogoutPost;
+      };
+    };
+    'discord': {
+      ':discordId': {
+        'schedules': {
+          '$url': {
+          };
+          '$get': ApiDiscordIdSchedulesGetHead;
+          '$head': ApiDiscordIdSchedulesGetHead;
+        };
       };
     };
     'medications': {

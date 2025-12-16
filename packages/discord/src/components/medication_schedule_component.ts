@@ -72,7 +72,7 @@ export class MedicationScheduleComponent {
         .addTextDisplayComponents(
           new TextDisplayBuilder().setContent(
             lb(
-              `💊 **${medication.name}**` +
+              `\`💊\` **${medication.name}**` +
                 (medication.dosage ? ` • \`${medication.dosage}\`` : '') +
                 (medication.form ? ` • \`${medication.form}\`` : ''),
               medication.instructions ? `- **Instructions** : ${medication.instructions}` : null,

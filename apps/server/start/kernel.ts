@@ -44,5 +44,6 @@ router.use([
  * the routes or the routes group.
  */
 export const middleware = router.named({
+  discordBot: () => import('#core/middleware/discord_bot_middleware'),
   auth: () => import('#auth/middleware/auth_middleware'),
 })

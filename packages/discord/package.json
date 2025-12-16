@@ -12,17 +12,21 @@
       "types": "./build/components/index.d.ts"
     }
   },
-  "files": ["build"],
+  "files": [
+    "build"
+  ],
   "scripts": {
     "build": "tsc"
   },
   "dependencies": {
     "@discordjs/builders": "^1.13.1",
-    "@discordjs/core": "^2.4.0"
+    "@discordjs/core": "^2.4.0",
+    "luxon": "^3.7.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:^",
     "@repo/prettier-config": "workspace:^",
+    "@types/luxon": "^3.7.1",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "^5.9.3"

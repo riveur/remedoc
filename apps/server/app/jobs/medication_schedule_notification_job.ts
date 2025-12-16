@@ -6,7 +6,7 @@ import { DateTime } from 'luxon'
 
 import { db } from '#core/services/db/main'
 import { medications, medicationSchedules, users } from '#core/services/db/schema'
-import { discord } from '#core/services/discord'
+import { discord } from '#discord/services/main'
 import { MedicationScheduleComponent } from '@repo/discord/components'
 
 export type MedicationScheduleNotificationData = {
