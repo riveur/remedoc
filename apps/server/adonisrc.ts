@@ -89,5 +89,9 @@ export default defineConfig({
       pattern: 'public/**',
       reloadServer: false,
     },
+    {
+      pattern: 'drizzle/**',
+      reloadServer: false,
+    },
   ],
 })
