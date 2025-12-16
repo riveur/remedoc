@@ -3,9 +3,12 @@
 	"ui": "tui",
 	"tasks": {
 		"build": {
-			"dependsOn": ["^build"],
+			"dependsOn": [],
 			"inputs": ["$TURBO_DEFAULT$", ".env*"],
 			"outputs": ["build/**", "public/**"]
+		},
+		"@repo/server#build": {
+			"dependsOn": ["@repo/web#build"]
 		},
 		"lint": {
 			"dependsOn": ["^lint"]
