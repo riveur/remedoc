@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
   redis:
-    image: docker.io/bitnami/redis:8.0
+    image: docker.io/soldevelo/redis:8.0
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
